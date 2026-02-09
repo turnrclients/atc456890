@@ -13,22 +13,12 @@ $(document).ready(function () {
 
 
     $(document).on('click', '.updateImg', function () {
-
-        var imgName = "default";
-        if($(this).attr("src")) {
-            imgName = $(this).attr("src");
-        } else {
-            const bgImg = $(this).css('background-image');
-            if (bgImg && bgImg.includes('url(')) {
-                imgName = bgImg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-            }
-        }
-
+        var imgName = $(this).attr("src");
         if(imgName.includes("?")) {
             imgName = imgName.split("?")[0]
         }
 
-        alert("imgName-----"+imgName);
+        //alert("imgName-----"+imgName);
         $(".formFieldFileName").val(imgName);
         // var clientName = "";
         // var clientProjectName = "";
@@ -47,8 +37,6 @@ $(document).ready(function () {
         uploadImgData();
 
     });
-
-
     // function uploadImgData(imgSrc) {
     function uploadImgData() {
         var form = $('#imgForm')[0];
@@ -92,15 +80,6 @@ $(document).ready(function () {
             wrapper.find('*').not('.link-to-dropdown-container *').addClass('editable');
             wrapper.find('img').addClass('editable-image');
             wrapper.find('img').addClass('updateImg');
-
-            // code to call on click event of the tags which has background image or background url
-            wrapper.find('*').each(function() {
-                const styleAttr = $(this).attr('style');
-                if (styleAttr && /background[^;]*url\(/i.test(styleAttr)) {
-                    $(this).addClass('updateImg editable-image');
-                }
-            });
-
             wrapper.find('a.editable').on('click.editable', handleAnchorEdit);
             $(document).on('click', '.editable', function (e) {
                 e.stopPropagation();
@@ -139,7 +118,6 @@ $(document).ready(function () {
             wrapper.find('img').removeClass('editable-image').off('click');
             wrapper.find('*').removeAttr('contenteditable');
             wrapper.find('a.editable').off('click.editable');
-            wrapper.find('.updateBgImg').removeClass('editable-image updateBgImg');
             $('.link-to-btn').remove();
             $('.link-to-dropdown-container').remove();
             $('.add-section-above, .add-section-below ,.remove-section-btn').remove();

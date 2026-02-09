@@ -1,131 +1,3 @@
-// ==============Custom alert========================
-function injectCustomAlertCSS() {
-    if (document.getElementById('custom-alert-style')) return;
-
-    const style = document.createElement('style');
-    style.id = 'custom-alert-style';
-    style.innerHTML = `
-        .custom-alert-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 99997;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .custom-alert-backdrop.show {
-            opacity: 1;
-        }
-
-        .custom-alert-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -60%) scale(0.95);
-            opacity: 0;
-            z-index: 99998;
-            width: 100%;
-            max-width: 420px;
-            font-family: 'Quicksand', sans-serif;
-            transition: transform 0.35s ease, opacity 0.35s ease;
-            pointer-events: none;
-        }
-
-        .custom-alert-popup.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .custom-alert-content {
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-            text-align: center;
-            padding: 30px 26px;
-        }
-
-        .custom-alert-message {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 22px;
-        }
-
-        .custom-alert-popup.success .custom-alert-message {
-            color: #28a745;
-        }
-
-        .custom-alert-popup.error .custom-alert-message {
-            color: #dc3545;
-        }
-
-        .custom-alert-ok-btn {
-            background: linear-gradient(135deg, #e39a4e, #fb1b1b);
-            color: #fff;
-            border: none;
-            padding: 10px 36px;
-            border-radius: 230px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-        }
-
-        .custom-alert-ok-btn:hover {
-            opacity: 0.9;
-        }
-
-        body.custom-alert-open {
-            overflow: hidden;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-function showCustomAlertBox(type = 'error', message = 'Something went wrong', onOk) {
-
-    injectCustomAlertCSS();
-
-    // normalize type
-    type = (type === 'success') ? 'success' : 'error';
-
-    // fallback message safety
-    if (!message || message.trim() === '') {
-        message = 'Something went wrong';
-    }
-
-    const backdrop = document.createElement('div');
-    backdrop.className = 'custom-alert-backdrop show';
-
-    const popup = document.createElement('div');
-    popup.className = `custom-alert-popup ${type} show`;
-
-    popup.innerHTML = `
-        <div class="custom-alert-content">
-            <div class="custom-alert-message">${message}</div>
-            <button class="custom-alert-ok-btn">OK</button>
-        </div>
-    `;
-
-    document.body.appendChild(backdrop);
-    document.body.appendChild(popup);
-    document.body.classList.add('custom-alert-open');
-
-    function close() {
-        backdrop.remove();
-        popup.remove();
-        document.body.classList.remove('custom-alert-open');
-        if (typeof onOk === 'function') onOk();
-    }
-
-    popup.querySelector('.custom-alert-ok-btn').onclick = close;
-    backdrop.onclick = close;
-}
-
-// =========================================================
-
-
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -445,7 +317,7 @@ const SEOData = {
 
     const filteredFooterPages = FooterPages.filter(page => !headerPages.includes(page));
     if (globalHeader.indexOf("header")!=0 || globalFooter.indexOf("footer")!=0) {
-       alert('You forgot to add Header or Footer for your website so please add before proceeding further.');
+        alert('You forgot to add Header or Footer for your website so please add before proceeding further.');
         return;
     }
 
@@ -523,11 +395,10 @@ const SEOData = {
 
         section.find('img').each(function() {
             const oldSrc = $(this).attr("src");
-            if (oldSrc && (oldSrc.endsWith(".jpeg") || oldSrc.endsWith(".JPG") || oldSrc.endsWith(".jpg") || oldSrc.endsWith(".png") || oldSrc.endsWith(".svg"))) {
+            if (oldSrc && (oldSrc.endsWith(".jpg") || oldSrc.endsWith(".png") || oldSrc.endsWith(".svg"))) {
                 // Check if the src contains 'assets/images/' and replace it
                 if (oldSrc.includes("assets/images/")) {
-                    //const newSrc = oldSrc.replace("assets/images/", `assets/clients/${clientName}/${clientProjectName}/images/`);
-                    const newSrc = oldSrc.replace("assets/images/", `assets/images/`);
+                    const newSrc = oldSrc.replace("assets/images/", `assets/clients/${clientName}/${clientProjectName}/images/`);
                     $(this).attr("src", newSrc); // Update the src attribute
                 }
                 addImagesToList(oldSrc); // Always add the oldSrc to the list
@@ -539,10 +410,9 @@ const SEOData = {
             if (backgroundImage && backgroundImage !== 'none') {
                 const imageUrl = backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
                 // Check if the background image URL contains 'assets/images/' and replace it
-                if (imageUrl && (imageUrl.endsWith(".jpeg") || imageUrl.endsWith(".JPG") || imageUrl.endsWith(".jpg") || imageUrl.endsWith(".png") || imageUrl.endsWith(".svg"))) {
+                if (imageUrl && (imageUrl.endsWith(".jpg") || imageUrl.endsWith(".png") || imageUrl.endsWith(".svg"))) {
                     if (imageUrl.includes("assets/images/")) {
-                       // const newImageUrl = imageUrl.replace("assets/images/", `assets/clients/${clientName}/${clientProjectName}/images/`);
-                        const newImageUrl = imageUrl.replace("assets/images/", `assets/images/`);
+                        const newImageUrl = imageUrl.replace("assets/images/", `assets/clients/${clientName}/${clientProjectName}/images/`);
                         $(this).css("background-image", `url(${newImageUrl})`); // Update the background-image URL
                     }
                     addImagesToList(imageUrl); // Always add the imageUrl to the list
@@ -583,24 +453,17 @@ const SEOData = {
         // if (globalHeader) allSectionsOfPage.push(globalHeader);
 
         // Add mid sections in the page
-            let middleKey = null;
-            if (middleSections["header_" + pageName]) {
-                middleKey = "header_" + pageName;
+        if(middleSections[pageName] !== undefined) {
 
-            // Try pageName as fallback
-            } else if (middleSections[pageName]) {
-                middleKey = pageName;
-            }
-
-            if (middleKey && middleSections[middleKey].length > 0) {
-                const availableMiddleSectionsForPage = middleSections[middleKey];
-                availableMiddleSectionsForPage.forEach(sectionId => {
-                    allSectionsOfPage.push(sectionId);
+            const availableMiddleSectionsForPage = middleSections[pageName];
+            if (availableMiddleSectionsForPage) {
+                availableMiddleSectionsForPage.forEach(pageSectionName => {
+                        allSectionsOfPage.push(pageSectionName);
                 });
-            } else {
-                console.warn("No middle section found for", pageName, " → using default");
-                allSectionsOfPage.push("default-middle_section");
             }
+        } else {
+            allSectionsOfPage.push("default-middle_section");
+        }
 
         // Add footer section in the page
         // if (globalFooter) allSectionsOfPage.push(globalFooter);
@@ -620,16 +483,7 @@ const SEOData = {
         let pageContent = '';
         allSectionsOfPage.forEach(sectionId => {
 
-            const originalSection =
-            document.getElementById(sectionId) ||
-            document.querySelector(`[id^="${sectionId}"]`);
-
-            if (!originalSection) {
-                console.warn("Missing section in DOM:", sectionId);
-                return;  //  Prevents blank pages
-            }
-
-            const sectionClone = $(originalSection).clone();
+            const sectionClone = $(`#${sectionId}`).clone();
             sectionClone.find('.radio-holder').remove();
             // sectionClone.find('img').each(function() {
             //     const oldSrc = $(this).attr("src");
@@ -680,20 +534,17 @@ sectionClone.find('.company_name').contents().filter(function () {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="${seoInfo.description}">
             <meta name="keywords" content="${seoInfo.keywords}">
-            <base href='/'>
             <title>${fileName}</title>
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-            <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             <link rel="stylesheet" href="assets/css/style.css">
             <link rel="stylesheet" href="assets/css/middle_sections.css">
-            <link rel="stylesheet" href="assets/css/anim-effects.css">
             <link rel="stylesheet" href="assets/css/components/${globalHeader}.css">
             <link rel="stylesheet" href="assets/css/components/${globalFooter}.css">
             <link rel="stylesheet" href="assets/css/bootstrap.css">
             <link rel="stylesheet" href="assets/css/plugins.css">
 	        <link rel="stylesheet" href="assets/css/custom-Imports.css">
-            <link rel="stylesheet" href="assets/css/custom/editmode.css">
             <link rel="stylesheet" href="assets/css/resonsive.css">
             	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 	<link rel="stylesheet"
@@ -709,10 +560,9 @@ sectionClone.find('.company_name').contents().filter(function () {
         </head>
         <body class="${selectedThemeClass}">
             <div id="wrapper">
-            <div id="header" data-src="header.html"></div>
+            <div id="header"></div>
             <div id="mainPageContent">${pageContent}</div>
-            <div id="footer" data-src="footer.html"></div>
-
+            <div id="footer"></div>
             </div>
             <script src="assets/js/jquery.js"></script>
             <script src="assets/js/init.js"></script>
@@ -722,28 +572,14 @@ sectionClone.find('.company_name').contents().filter(function () {
             <script src="assets/js/ScrollTrigger.min.js"></script>
             <script src="assets/js/Observer.min.js"></script>
             <script src="assets/js/gsap.effects.js"></script>
-            <script src="assets/js/common_js/send_email.js"></script>
-
-            <script src="assets/js/common_js/html_image_editor.js"></script>
-            <script src="assets/js/common_js/windows_postmessage.js"></script>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
             <script>
                 var fileName = document.title || "index";
 
                 $(document).ready(function () {
-                /* Start code to load js and css files properly on local server or production server: NOte: this is the workwround, need to fix this */
-                loadHeaderFooter("header", "client-assets/${clientName}/${clientProjectName}/header.html");
-                loadHeaderFooter("footer", "client-assets/${clientName}/${clientProjectName}/footer.html");
-                /*  End code */
-
-                /*  Start code to load js and css files properly on Githubpages  */
-                loadHeaderFooter("header", "header.html");
-                loadHeaderFooter("footer", "footer.html");
-                /* End code */
-
+                loadHeaderFooter("header", "assets/clients/${clientName}/${clientProjectName}/header.html");
+                loadHeaderFooter("footer", "assets/clients/${clientName}/${clientProjectName}/footer.html");
                 });
 
                 function loadHeaderFooter(id, file) {
@@ -757,10 +593,10 @@ sectionClone.find('.company_name').contents().filter(function () {
 
                         if (id === "header") {
                             if (fileName.toLowerCase() === "index" || fileName.toLowerCase() === "home") {
-                                $("#" + id).find(".main-header-section").css("display", "inline-block");
+                                $("#" + id).find(".main-header-section").css("display", "block");
                             } else {
                                 $("#" + id).find(".main-header-section").css("display", "none");
-                                $("#" + id).find(".header-breadcrumb-section").css("display", "inline-block");
+                                $("#" + id).find(".header-breadcrumb-section").css("display", "block");
                                 $("#" + id).find(".header-breadcrumb-section .Page_name")
                                     .text(fileName.charAt(0).toUpperCase() + fileName.slice(1));
                             }
@@ -769,7 +605,6 @@ sectionClone.find('.company_name').contents().filter(function () {
                 }
             </script>
                         <script src="assets/js/middle-section.js"></script>
-                        <script src="assets/js/common_js/image_uploader.js"></script>
 
         </body>
         </html>
@@ -784,44 +619,22 @@ sectionClone.find('.company_name').contents().filter(function () {
     // filteredFooterPages.push("default-middle_section");  // Add DUmmy entry to add default middle section
 
     filteredFooterPages.forEach(pageName => {
-    if (headerPages.includes(pageName)) {
-        console.log("Skipping duplicate footer page:", pageName);
-        return;
-    }
         const allSectionsOfPage = [];
         // Add header section in the page
         // if (globalHeader) allSectionsOfPage.push(globalHeader);
 
         // Add mid sections in the page
-       let middleKey = null;
-    // Try footer_<pageName>
-    if (middleSections["footer_" + pageName]) {
-        middleKey = "footer_" + pageName;
+        if(middleSections[pageName] !== undefined) {
 
-    // Try header_<pageName> (fallback)
-    } else if (middleSections["header_" + pageName]) {
-        middleKey = "header_" + pageName;
-
-    // Try plain pageName
-    } else if (middleSections[pageName]) {
-        middleKey = pageName;
-    }
-
-
- if (middleKey && middleSections[middleKey].length > 0) {
-        middleSections[middleKey].forEach(sectionId => {
-            allSectionsOfPage.push(sectionId);
-        });
-    } else {
-        console.warn("No middle section for FOOTER page:", pageName);
-        allSectionsOfPage.push("default-middle_section");
-    }
-
-    if (allSectionsOfPage.length === 0) {
-        alert(`No sections selected for export for ${pageName}`);
-        return;
-    }
-
+            const availableMiddleSectionsForPage = middleSections[pageName];
+            if (availableMiddleSectionsForPage) {
+                availableMiddleSectionsForPage.forEach(pageSectionName => {
+                        allSectionsOfPage.push(pageSectionName);
+                });
+            }
+        } else {
+            allSectionsOfPage.push("default-middle_section");
+        }
 
         // Add footer section in the page
         // if (globalFooter) allSectionsOfPage.push(globalFooter);
@@ -831,45 +644,32 @@ sectionClone.find('.company_name').contents().filter(function () {
             return;
         }
 
-      let fileName = pageName.replace(/^footer_/, "");
+        let fileName = pageName;
+        fileName = fileName.replace(/^(header_)/, ''); // Clean up prefix
 
-    if (fileName.includes("_sub_")) {
-        fileName = fileName.split("_sub_")[1];
-    }
-
+        if (fileName.includes('_sub_')) {
+            fileName = fileName.split('_sub_')[1];
+        }
 
         let pageContent = '';
         var clientName = getCookie("clientName");
         var clientProjectName =  getCookie("projectName");
 
 
-allSectionsOfPage.forEach(sectionId => {
+        allSectionsOfPage.forEach(sectionId => {
 
-        // Try exact ID or prefix match
-        let originalSection =
-            document.getElementById(sectionId) ||
-            document.querySelector(`[id^="${sectionId}"]`);
+            const sectionClone = $(`#${sectionId}`).clone();
+            sectionClone.find('.radio-holder').remove();
+            processImagesAndRemoveThemeClasses(sectionClone);
 
-        if (!originalSection) {
-            console.warn("Missing section in DOM:", sectionId);
-            return;
-        }
+            sectionClone.find('.company_name').contents().filter(function () {
+                return this.nodeType === 3 && this.nodeValue.includes("Company Name");
+            }).each(function () {
+                this.nodeValue = this.nodeValue.replace(/Company Name/g, clientProjectName);
+            });
 
-        const sectionClone = $(originalSection).clone();
-
-        sectionClone.find(".radio-holder").remove();
-
-        processImagesAndRemoveThemeClasses(sectionClone, clientName, clientProjectName);
-
-        sectionClone.find(".company_name").contents().filter(function () {
-            return this.nodeType === 3 &&
-                   this.nodeValue.includes("Company Name");
-        }).each(function () {
-            this.nodeValue = this.nodeValue.replace(/Company Name/g, clientProjectName);
+            pageContent += `${sectionClone.html()}\n`;
         });
-
-        pageContent += `${sectionClone.html()}\n`;
-    });
     let headerFont = $("." + globalHeader).css("font-family") || "'Roboto', sans-serif";
     const seoInfo = SEOData[headerCategory] || {keywords: "", description: ""};
 
@@ -881,21 +681,17 @@ allSectionsOfPage.forEach(sectionId => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="${seoInfo.description}">
             <meta name="keywords" content="${seoInfo.keywords}">
-            <base href='/'>
-
             <title>${fileName}</title>
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-              <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             <link rel="stylesheet" href="assets/css/style.css">
             <link rel="stylesheet" href="assets/css/middle_sections.css">
-            <link rel="stylesheet" href="assets/css/anim-effects.css">
             <link rel="stylesheet" href="assets/css/components/${globalHeader}.css">
             <link rel="stylesheet" href="assets/css/components/${globalFooter}.css">
             <link rel="stylesheet" href="assets/css/bootstrap.css">
             <link rel="stylesheet" href="assets/css/plugins.css">
             <link rel="stylesheet" href="assets/css/custom-Imports.css">
-            <link rel="stylesheet" href="assets/css/custom/editmode.css">
             <link rel="stylesheet" href="assets/css/resonsive.css">
 
 
@@ -911,12 +707,11 @@ allSectionsOfPage.forEach(sectionId => {
             }
         </style>
         </head>
-       <body class="${selectedThemeClass}">
+        <body class="${selectedThemeClass}">
             <div id="wrapper">
-            <div id="header" data-src="header.html"></div>
+            <div id="header"></div>
             <div id="mainPageContent">${pageContent}</div>
-            <div id="footer" data-src="footer.html"></div>
-
+            <div id="footer"></div>
             </div>
             <script src="assets/js/jquery.js"></script>
             <script src="assets/js/init.js"></script>
@@ -926,30 +721,13 @@ allSectionsOfPage.forEach(sectionId => {
             <script src="assets/js/ScrollTrigger.min.js"></script>
             <script src="assets/js/Observer.min.js"></script>
             <script src="assets/js/gsap.effects.js"></script>
-
-
-            <script src="assets/js/common_js/send_email.js"></script>
-
-            <script src="assets/js/common_js/html_image_editor.js"></script>
-            <script src="assets/js/common_js/windows_postmessage.js"></script>
-
             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
             <script>
                 var fileName = document.title || "index";
 
                 $(document).ready(function () {
-                /* Start code to load js and css files properly on local server or production server: NOte: this is the workwround, need to fix this */
-                loadHeaderFooter("header", "client-assets/${clientName}/${clientProjectName}/header.html");
-                loadHeaderFooter("footer", "client-assets/${clientName}/${clientProjectName}/footer.html");
-                /*  End code */
-
-                /*  Start code to load js and css files properly on Githubpages  */
-                loadHeaderFooter("header", "header.html");
-                loadHeaderFooter("footer", "footer.html");
-                /* End code */
-
+                    loadHeaderFooter("header", "assets/clients/${clientName}/${clientProjectName}/header.html");
+                    loadHeaderFooter("footer", "assets/clients/${clientName}/${clientProjectName}/footer.html");
                 });
 
                 function loadHeaderFooter(id, file) {
@@ -963,10 +741,10 @@ allSectionsOfPage.forEach(sectionId => {
 
                         if (id === "header") {
                             if (fileName.toLowerCase() === "index" || fileName.toLowerCase() === "home") {
-                                $("#" + id).find(".main-header-section").css("display", "inline-block");
+                                $("#" + id).find(".main-header-section").css("display", "block");
                             } else {
                                 $("#" + id).find(".main-header-section").css("display", "none");
-                                $("#" + id).find(".header-breadcrumb-section").css("display", "inline-block");
+                                $("#" + id).find(".header-breadcrumb-section").css("display", "block");
                                 $("#" + id).find(".header-breadcrumb-section .Page_name")
                                     .text(fileName.charAt(0).toUpperCase() + fileName.slice(1));
                             }
@@ -974,13 +752,12 @@ allSectionsOfPage.forEach(sectionId => {
                     });
                 }
             </script>
-                        <script src="assets/js/middle-section.js"></script>
-                        <script src="assets/js/common_js/image_uploader.js"></script>
+            <script src="assets/js/middle-section.js"></script>
 
         </body>
         </html>
     `;
-    filesDetailsMap[`${fileName}.html`] = newPageContent;
+     filesDetailsMap[`${fileName}.html`] = newPageContent;
 
     });
     filesDetailsMap["imagesNameList"] = imagesNameList;
@@ -988,12 +765,11 @@ allSectionsOfPage.forEach(sectionId => {
 }
 function uploadFilesData(filesDetailsMap) {
     displayLoadingMessage();
- $("#uploadBtn").show();
+
     filesDetailsMap["clientName"] =  getCookie("clientName");
     filesDetailsMap["clientProjectName"] =  getCookie("projectName");
     // filesDetailsMap["reqFor"] =  "preview";
-console.log("clientName:", getCookie("clientName"));
-console.log("projectName:", getCookie("projectName"));
+
     $.ajax({
         type: 'POST',
         url: "indexOld/",
@@ -1005,243 +781,19 @@ console.log("projectName:", getCookie("projectName"));
             "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
         },
         success: function (data) {
-           showCustomAlertBox('success', 'Uploaded the data');
-        //   alert("Uploaded the data");
+          alert("Uploaded the data");
           $('#loading-message').remove();
-            // Clear all cookies
-            // clearAllCookies();
-            // location.reload();
-        // $('#openIndex').trigger('click', [getCookie("clientName"), getCookie("projectName"),true]);
-        openPreview();
+        // Clear all cookies
+        clearAllCookies();
+        location.reload();
+
         },
         error: function (xhr, errmsg, err) {
-            console.log("Error----"+ xhr.responseText);
+            alert("Error----"+ xhr.responseText);
             $('#loading-message').remove();
         }
       });
 }
-// for preview in mobile and desktop view in one frame
-        function openPreview() {
-
-            var filename = "index.html";
-            var clientName = getCookie('clientName');
-            var clientProjectName = getCookie('projectName');
-
-            setCookie('preview', 'true', 7);
-
-            $.ajax({
-                type: 'POST',
-                url: "es/",
-                data: {
-                    clientName: clientName,
-                    clientProjectName: clientProjectName,
-                    srcReq: filename
-                },
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest"
-                },
-                success: function (data) {
-
-                    var newTab = window.open(`/es/?srcReq=${filename}`, "_blank");
-
-                    var interval = setInterval(function () {
-                        try {
-                            if (newTab.document && newTab.document.readyState === 'complete') {
-                                clearInterval(interval);
-                                injectPreviewShell(newTab, data);
-                            }
-                        } catch (e) {}
-                    }, 50);
-                },
-                error: function (err) {
-                    alert(err.responseJSON?.errorMessage || 'Something went wrong');
-                }
-            });
-
-            return false;
-
-            /* ================= PREVIEW SHELL ================= */
-
-            function injectPreviewShell(newTab, pageHtml) {
-
-                newTab.document.body.innerHTML = `
-                    <style>
-                    body {
-                        margin: 0;
-                        background: #1f222b;
-                        font-family: system-ui, -apple-system, Segoe UI;
-                        height: 100vh;
-                        overflow: hidden;
-                    }
-
-                    .preview-topbar {
-                        height: 56px;
-                        background: #2a2d38;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        gap: 14px;
-                        border-bottom: 1px solid rgba(255,255,255,.1);
-                    }
-
-                    .preview-btn {
-                        width: 42px;
-                        height: 42px;
-                        border-radius: 10px;
-                        border: none;
-                        background: #3a3f55;
-                        color: #fff;
-                        cursor: pointer;
-                        font-size: 18px;
-                        opacity: .6;
-                    }
-
-                    .preview-btn.active {
-                        background: #5865f2;
-                        opacity: 1;
-                    }
-
-                    .preview-body {
-                        height: calc(100vh - 56px);
-                        display: flex;
-                        justify-content: center;
-                        align-items: flex-start;
-                        padding: 20px;
-                        overflow: auto;
-                    }
-
-                    .desktop-frame {
-                        width: 100%;
-                        height: 100%;
-                    }
-
-                    .mobile-frame {
-                        width: 390px;
-                        height: calc(100vh - 56px - 40px);
-                        max-height: 720px;
-                        background: #000;
-                        border-radius: 30px;
-                        padding: 10px;
-                        box-shadow: 0 25px 60px rgba(0,0,0,.6);
-                    }
-
-                    iframe {
-                        width: 100%;
-                        height: 100%;
-                        border: none;
-                        background: #fff;
-                        border-radius: 22px;
-                    }
-
-                    .hidden { display: none; }
-                    </style>
-
-                    <div class="preview-topbar">
-                        <button id="desktopBtn" class="preview-btn active">🖥️</button>
-                        <button id="mobileBtn" class="preview-btn">📱</button>
-                    </div>
-
-                    <div class="preview-body">
-                        <div id="desktopView" class="desktop-frame">
-                            <iframe id="desktopIframe"></iframe>
-                        </div>
-
-                        <div id="mobileView" class="mobile-frame hidden">
-                            <iframe id="mobileIframe"></iframe>
-                        </div>
-                    </div>
-                `;
-
-                const desktopIframe = newTab.document.getElementById('desktopIframe');
-                const mobileIframe  = newTab.document.getElementById('mobileIframe');
-
-                desktopIframe.onload = () => hideTopBar(desktopIframe.contentDocument);
-                mobileIframe.onload  = () => hideTopBar(mobileIframe.contentDocument);
-
-                desktopIframe.contentDocument.open();
-                desktopIframe.contentDocument.write(pageHtml);
-                desktopIframe.contentDocument.close();
-
-                mobileIframe.contentDocument.open();
-                mobileIframe.contentDocument.write(pageHtml);
-                mobileIframe.contentDocument.close();
-
-                const desktopBtn = newTab.document.getElementById('desktopBtn');
-                const mobileBtn  = newTab.document.getElementById('mobileBtn');
-                const desktopView = newTab.document.getElementById('desktopView');
-                const mobileView  = newTab.document.getElementById('mobileView');
-
-                desktopBtn.onclick = () => {
-                    desktopView.classList.remove('hidden');
-                    mobileView.classList.add('hidden');
-                    desktopBtn.classList.add('active');
-                    mobileBtn.classList.remove('active');
-                };
-
-                mobileBtn.onclick = () => {
-                    mobileView.classList.remove('hidden');
-                    desktopView.classList.add('hidden');
-                    mobileBtn.classList.add('active');
-                    desktopBtn.classList.remove('active');
-                };
-            }
-
-            function hideTopBar(doc) {
-                let tries = 0;
-                const i = setInterval(() => {
-                    const bar = doc.getElementById('top-bar');
-                    if (bar) {
-                        bar.style.display = 'none';
-                        clearInterval(i);
-                    }
-                    if (++tries > 50) clearInterval(i);
-                }, 100);
-            }
-        }
-
-
-
-
-// function openPreview(){
-//     //alert('hello...........')
-//       var filename = "index.html";
-//         var clientName = getCookie('clientName');
-//         var clientProjectName = getCookie('projectName');
-//         setCookie('preview','true',7)
-
-//         $.ajax({
-//             type: 'POST',
-//             url: "es/",
-//             data: {
-//             'clientName': clientName,
-//             'clientProjectName': clientProjectName,
-//             'srcReq': filename,
-//             },
-//             headers: {
-//                  "X-Requested-With": "XMLHttpRequest",
-//             },
-//             success: function (data) {
-//                 console.log('data: ', data)
-//                 window.open(`/es/?srcReq=${filename}`, "_blank");
-
-
-//             },
-//             error: function (data, errmsg, err) {
-//                 alert(data.responseJSON.errorMessage);
-//             }
-//           });
-//           return false;
-//  }
-
-
-
-
-
-
-
-
-
-
 function cleanPageName(pageName) {
     if (pageName.startsWith('header_')) {
         return pageName.replace(/^header_/, '');
@@ -1311,94 +863,87 @@ function generateFooterLinks() {
     return footerContent;
 }
 
+let selectedThemeClass = '';
 
-// Theme Selector code
-            let selectedThemeClass = '';
+const themes = {
+  'theme-1': { primary: '#0f6979', secondary: '#ffc000', tertiary: '#ffffff' },
+  'theme-2': { primary: '#283259', secondary: '#1da6a6', tertiary: '#ffffff' },
+  'theme-3': { primary: '#1d4d13', secondary: '#f4a300', tertiary: '#ffffff' },
+  'theme-4': { primary: '#ffc000', secondary: '#ffffff', tertiary: '#000000' },
+  'theme-5': { primary: '#f0f8ff', secondary: '#59bb2c', tertiary: '#000000' },
+  'theme-6': { primary: '#0caa85', secondary: '#f4a300', tertiary: '#ffffff' },
+};
 
-            const themes = {
-            'theme-1': { primary: '#0f6979', secondary: '#ffc000', tertiary: '#ffffff' },
-            'theme-2': { primary: '#283259', secondary: '#1da6a6', tertiary: '#ffffff' },
-            'theme-3': { primary: '#1d4d13', secondary: '#f4a300', tertiary: '#ffffff' },
-            'theme-4': { primary: '#ffc000', secondary: '#ffffff', tertiary: '#000000' },
-            'theme-5': { primary: '#f0f8ff', secondary: '#59bb2c', tertiary: '#000000' },
-            'theme-6': { primary: '#0caa85', secondary: '#f4a300', tertiary: '#ffffff' },
-            };
+// Hide the preview initially when the modal is shown
+$('#theme-modal').on('show', function() {
+  $('#theme-dropdown').val('');
+  $('#theme-preview').hide(); // Hide the preview initially
+});
 
-            // Function to update the theme color preview
-            function updateThemePreview(theme) {
-            const colors = themes[theme] || { primary: '#ffffff', secondary: '#000000', tertiary: '#ffffff' };
-            $('#theme-preview .primary').css('background-color', colors.primary);
-            $('#theme-preview .secondary').css('background-color', colors.secondary);
-            $('#theme-preview .tertiary').css('background-color', colors.tertiary);
-            }
+// Function to update theme preview colors
+function updateThemePreview(theme) {
+  let colors;
 
-            // When dropdown value changes
-            $('#theme-dropdown').on('change', function () {
-            selectedThemeClass = $(this).val();
-            if (selectedThemeClass) {
-                updateThemePreview(selectedThemeClass);
-                $('#theme-preview').show();
-            } else {
-                $('#theme-preview').hide();
-            }
-            });
+  if (themes[theme]) {
+    colors = themes[theme];
+  } else {
+    colors = { primary: '#ffffff', secondary: '#000000', tertiary: '#ffffff' };
+  }
 
-            // When switching to the Theme tab
-            $('a[href="#tab-theme"]').on('shown.bs.tab', function () {
-            // Set default theme if none selected
-            if (!selectedThemeClass) {
-                selectedThemeClass = 'theme-1';
-                $('#theme-dropdown').val('theme-1');
-            }
-            updateThemePreview(selectedThemeClass);
-            $('#theme-preview').show();
-            });
+  // Update the color of each circle in the preview
+  $('#theme-preview .primary').css('background-color', colors.primary);
+  $('#theme-preview .secondary').css('background-color', colors.secondary);
+  $('#theme-preview .tertiary').css('background-color', colors.tertiary);
+}
 
-            // On export button click
-            $('#export-btn').off('click').on('click', function () {
+// When a theme is selected from the dropdown
+$('#theme-dropdown').change(function() {
+  selectedThemeClass = $(this).val();
 
-                const clientName = getCookie("clientName");
-                const projectName = getCookie("projectName");
-                let theme = selectedThemeClass || 'theme-1';
+  if (selectedThemeClass) {
+    updateThemePreview(selectedThemeClass);
+    $('#theme-preview').show(); // Show the preview once a theme is selected
+  } else {
+    $('#theme-preview').hide(); // Hide the preview if no theme is selected
+  }
+});
 
-                if (!clientName || !projectName) {
-                    alert("Client and Project details missing. Please fill them first.");
-                    return;
-                }
+// Submit button click handler
+$('.submit-btn').on('click', function() {
+  if (selectedThemeClass === '') {
+    alert("Please select a theme.");
+    return;
+  }
 
-                if (!theme) {
-                    theme = 'theme-1';
-                    setCookie('selectedTheme', theme, 7);
-                    console.log('No theme selected. Defaulting to theme-1.');
-                }
+  $('#theme-modal').modal('hide');
+  alert("Selected Theme: " + selectedThemeClass);
 
-                // preview handled by preview shell now
-                createHTMLFilesDataForWebsiteLinks(theme);
-            });
+  const clientName = getCookie("clientName");
+  const projectName = getCookie("projectName");
+
+  if (clientName && projectName) {
+    createHTMLFilesDataForWebsiteLinks(selectedThemeClass);
+  } else {
+    alert('Please enter both client and project names.');
+  }
+});
+
+// Cancel button click handler
+$('.cancel-btn').on('click', function() {
+  $('#theme-modal').modal('hide');
+});
+
+// Export button click handler to show the theme modal
+$('#export-btn').on('click', function() {
+  $('#theme-modal').modal('show');
+});
 
 
 
+// $('#export-btn').on('click', function() {
+//     $('#theme-modal').modal('show');
+//     });
 
-                    $('#preview-mobile-btn').off('click').on('click', function () { //New code
-
-                        const clientName = getCookie("clientName");
-                        const projectName = getCookie("projectName");
-                        let theme = selectedThemeClass || 'theme-1';
-
-                        if (!clientName || !projectName) {
-                            alert("Client and Project details missing. Please fill them first.");
-                            return;
-                        }
-
-                        if (!theme) {
-                            theme = 'theme-1';
-                            setCookie('selectedTheme', theme, 7);
-                            console.log('No theme selected. Defaulting to theme-1.');
-                        }
-
-                        setCookie('previewMode', 'mobile', 1);
-                        createHTMLFilesDataForWebsiteLinks(theme);
-                    });
 
 
 // $('#export-btn').on('click', function () {
