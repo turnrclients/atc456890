@@ -1264,6 +1264,26 @@ function initializeInputEditor(anchor) {
     }
 
     saveChanges.on('click', function () {
+        // Remove unneccessary scripts
+        $('[id="top-bar"]').not(':first').remove();
+        $('#page-header').removeClass('sticky-active');
+        $('.selectedPageName').not(':first').remove();
+        $('.selectedPageName:first').addClass('hidden').hide();
+        $('#wrapper').removeClass('editableSection');
+        const scriptMatchers = [
+            'middle-section.js',
+            'editmode.js',
+            'ai_model_bridge.js',
+            'main.js',
+            'editModeScript.js'
+        ];
+
+        scriptMatchers.forEach(match => {
+            const $scripts = $(`script[src*="${match}"]`);
+            $scripts.not(':first').remove();
+        });
+
+
         isEditingContent = false;
         isEditingImages = false;
         toggleEditableClasses(false);
@@ -1287,7 +1307,7 @@ function initializeInputEditor(anchor) {
         // Hide edit buttons and show save changes button
         enableEditMode.removeClass('hidden');
         saveChanges.addClass('hidden').prop('disabled', true);
-        topBar.addClass('hidden');
+        // topBar.addClass('hidden');
         $('#image-upload').remove();
         $('a.edit-site').removeClass('edit-site');
         $('a').addClass('edit-site').css('cursor', 'pointer');
@@ -1297,16 +1317,9 @@ function initializeInputEditor(anchor) {
             dynamicSliderWrapper.html(SliderContentOldHTML);
         }
 
-        // Remove unnecessary scripts and styles
-        $('script[src="assets/js/custom/editmode.js"]').remove();
-        $('link[href="https://cdn.quilljs.com/1.3.6/quill.snow.css"]').remove();
-        $('link[href="assets/css/custom/custom.css"]').remove();
-        $('script[src="https://cdn.quilljs.com/1.3.6/quill.min.js"]').remove();
-        $('script[src="assets/js/custom/main.js"]').remove();
-        $('script[src="assets/js/custom/editModeScript.js"]').remove();
         editedHTML.find('a.edit-site').removeClass('edit-site');
         editedHTML.find('#page-header').removeClass('sticky-active');
-        editedHTML.find('[id="top-bar"]').remove();
+
         const addressEl = document.querySelector('.business-address');
         if (addressEl) {
             const newAddress = addressEl.innerText.trim();
@@ -1319,7 +1332,9 @@ function initializeInputEditor(anchor) {
         }
         // Clone the HTML and clean up
         var editedHTML = $('html').clone();
-
+        editedHTML.find('#page-header').removeClass('sticky-active');
+        editedHTML.find('#wrapper').removeClass('editableSection');
+        editedHTML.$('#imgForm').remove();
         // SCRIPTS WHICH HAVE BEEN ADDED FROM THE BACKEND HAS TO BE REMOVE BEFORE SAVE
         // editedHTML.find('script[src*="editmode"]').remove();
         // editedHTML.find('script[src*="editModeScript"]').remove();
