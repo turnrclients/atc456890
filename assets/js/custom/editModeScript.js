@@ -1264,26 +1264,6 @@ function initializeInputEditor(anchor) {
     }
 
     saveChanges.on('click', function () {
-            $('.selectedPageName').remove();
-            $('[id="top-bar"]').not(':first').remove();
-            $('#page-header').removeClass('sticky-active');
-            $('#wrapper').removeClass('editableSection');
-            $('form#imgForm').remove();
-        const scriptSrcsToDedup = [
-            'assets/js/middle-section.js',
-            '/assets/css/custom/editmode.js',
-            '/assets/ai_model_bridge.js',
-            '/assets/js/custom/main.js',
-            '/assets/js/custom/editModeScript.js'
-        ];
-
-        scriptSrcsToDedup.forEach(src => {
-            const $scripts = $(`script[src="${src}"]`);
-            $scripts.not(':first').remove();
-        });
-
-
-
         isEditingContent = false;
         isEditingImages = false;
         toggleEditableClasses(false);
@@ -1307,6 +1287,7 @@ function initializeInputEditor(anchor) {
         // Hide edit buttons and show save changes button
         enableEditMode.removeClass('hidden');
         saveChanges.addClass('hidden').prop('disabled', true);
+        topBar.addClass('hidden');
         $('#image-upload').remove();
         $('a.edit-site').removeClass('edit-site');
         $('a').addClass('edit-site').css('cursor', 'pointer');
@@ -1316,7 +1297,16 @@ function initializeInputEditor(anchor) {
             dynamicSliderWrapper.html(SliderContentOldHTML);
         }
 
-
+        // Remove unnecessary scripts and styles
+        $('script[src="assets/js/custom/editmode.js"]').remove();
+        $('link[href="https://cdn.quilljs.com/1.3.6/quill.snow.css"]').remove();
+        $('link[href="assets/css/custom/custom.css"]').remove();
+        $('script[src="https://cdn.quilljs.com/1.3.6/quill.min.js"]').remove();
+        $('script[src="assets/js/custom/main.js"]').remove();
+        $('script[src="assets/js/custom/editModeScript.js"]').remove();
+        editedHTML.find('a.edit-site').removeClass('edit-site');
+        editedHTML.find('#page-header').removeClass('sticky-active');
+        editedHTML.find('[id="top-bar"]').remove();
         const addressEl = document.querySelector('.business-address');
         if (addressEl) {
             const newAddress = addressEl.innerText.trim();
@@ -1329,12 +1319,6 @@ function initializeInputEditor(anchor) {
         }
         // Clone the HTML and clean up
         var editedHTML = $('html').clone();
-        editedHTML.$('.editable, .editable-image').removeClass('editable editable-image');
-        editedHTML.find('a.edit-site').removeClass('edit-site');
-        editedHTML.find('form#imgForm').remove();
-        editedHTML.find('.selectedPageName').remove();
-        editedHTML.find('#page-header').removeClass('sticky-active');
-        editedHTML.find('#wrapper').removeClass('editableSection');
 
         // SCRIPTS WHICH HAVE BEEN ADDED FROM THE BACKEND HAS TO BE REMOVE BEFORE SAVE
         // editedHTML.find('script[src*="editmode"]').remove();
