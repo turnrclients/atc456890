@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/middle_sections.css">
+    <link rel="stylesheet" href="assets/css/custom/editmode.css">
     <link rel="stylesheet" href="assets/css/components/header-47.css">
     <link rel="stylesheet" href="assets/css/components/footer-15.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -33,10 +34,12 @@
         #wrapper * {
             font-family: var(--site-font) !important;
         }
+        
     </style>
 </head>
 
 <body class="theme-1">
+    <div id="top-bar" class="top-bar"><button id="enable-editmode">Enable Edit Mode</button><button onclick="uploadeditedproject()">upload changes</button><button id="save-changes" class="hidden" disabled="">Save</button></div>
     <div id="wrapper">
         <div id="header" data-src="header.html"></div>
         <div id="mainPageContent">
@@ -109,141 +112,6 @@
                                 <h3>15</h3>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <section class="section-wrapper home-85 home-85-section">
-                <div class="container">
-
-
-                    <div class="home-85-heading">
-                        <h2>Architecture &amp; Interior Design Services</h2>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="home-85-card anim-flip3d-up" style="opacity: 1 !important;">
-                                <i class="bi bi-brush home-85-icon"></i>
-                                <img src="assets/images/home-85-1.jpeg" alt="Interior Design">
-                                <h4>Interior Designing</h4>
-                                <p>Transforming interiors with premium materials and trending decor concepts.</p>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-4">
-                            <div class="home-85-card anim-flip3d-up" style="opacity: 1 !important;">
-                                <i class="bi bi-house-door home-85-icon"></i>
-                                <img src="assets/images/home-85-2.jpeg" alt="Interior Design">
-                                <h4>Modern Architecture</h4>
-                                <p>Crafting innovative exterior designs with modern structure planning.</p>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-4">
-                            <div class="home-85-card anim-flip3d-up" style="opacity: 1 !important;">
-                                <i class="bi bi-lightning-charge home-85-icon"></i>
-                                <img src="assets/images/home-85-3.jpg" alt="Interior Design">
-                                <h4>3D Visualization</h4>
-                                <p>High‑quality 3D renders for your dream architectural and interior projects.</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </section>
-
-
-            <section class="section-wrapper ourteam-6">
-                <div class="container ourteam-6-container">
-                    <div class="row">
-                        <div class="col-md-5 col-sm-12 ourteam-6-lefttext anim-flip3d-left"
-                            style="opacity: 1 !important;">
-                            <p class="ourteam-6-subtitle">* OUR DESIGN MASTERS</p>
-                            <h2 class="ourteam-6-title">We craft architectural experiences<br>that blend innovation,
-                                comfort,<br>and timeless aesthetics.</h2>
-                            <button class="btn ourteam-6-btn">MEET OUR TEAM <i class="bi bi-arrow-right"></i></button>
-                        </div>
-
-
-                        <div class="col-md-7 col-sm-12 ourteam-6-images">
-                            <div class="row">
-
-
-                                <div class="col-sm-4 col-xs-12 ourteam-6-profile anim-cube-rotate"
-                                    style="opacity: 1 !important;">
-                                    <img src="assets/images/our-team-6-1.jpeg" class="img-responsive ourteam-6-img">
-                                    <h4 class="ourteam-6-name">Samar Verma</h4>
-                                    <p class="ourteam-6-role">Lead Architect</p>
-                                </div>
-
-
-                                <div class="col-sm-4 col-xs-12 ourteam-6-profile anim-cube-rotate"
-                                    style="opacity: 1 !important;">
-                                    <img src="assets/images/our-team-6-2.jpeg" class="img-responsive ourteam-6-img">
-                                    <h4 class="ourteam-6-name">Neha Chauhan</h4>
-                                    <p class="ourteam-6-role">Interior Space Designer</p>
-                                </div>
-
-
-                                <div class="col-sm-4 col-xs-12 ourteam-6-profile anim-cube-rotate"
-                                    style="opacity: 1 !important;">
-                                    <img src="assets/images/our-team-6-3.jpeg" class="img-responsive ourteam-6-img">
-                                    <h4 class="ourteam-6-name">Rohan Bedi</h4>
-                                    <p class="ourteam-6-role">Concept Planner</p>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <section class="section-wrapper services-34">
-                <div class="container">
-                    <div class="row">
-
-
-                        <div class="col-sm-4">
-                            <div class="service-box anim-slide-up" style="opacity: 1 !important;">
-                                <img src="assets/images/services-34-1.jpg" alt="Architecture Chair">
-                                <div class="service-content">
-                                    <h3 class="service-title">Modern Architecture</h3>
-                                    <p class="service-sub">Creative Space Design</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-4">
-                            <div class="service-box anim-slide-up" style="opacity: 1 !important;">
-                                <img src="assets/images/services-34-2.jpg" alt="Interior Lamp">
-                                <div class="service-content">
-                                    <h3 class="service-title">Interior Accessories</h3>
-                                    <p class="service-sub">Stylish &amp; Minimal</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-4">
-                            <div class="service-box anim-slide-up" style="opacity: 1 !important;">
-                                <img src="assets/images/services-34-3.jpg" alt="Furniture Set">
-                                <div class="service-content">
-                                    <h3 class="service-title">Luxury Furniture</h3>
-                                    <p class="service-sub">Premium Collections</p>
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </section>
