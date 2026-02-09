@@ -73,30 +73,23 @@
                         <div class="col-md-6 contact-23-right">
                             <div class="contact-title">Your Information</div>
                             <p>Fill out the form and we'll get back to you shortly.</p>
-                            <form method="POST" id="contact-form">
+                            <form>
                                 <div class="row mb-3">
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                        <input type="text" class="form-control" placeholder="Your Name" required="">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="email" class="form-control" placeholder="Email" name="email"
-                                            required>
+                                        <input type="email" class="form-control" placeholder="Your Email" required="">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <textarea class="form-control" placeholder="Message" name="message" rows="5"
-                                        required></textarea>
+                                    <input type="text" class="form-control" placeholder="Subject" required="">
                                 </div>
-                                <button type="submit" class="btn btn-contact" onclick="sendEmailDataToGitHub()">Send
-                                    Message</button>
-
-
-                                <!-- Form Message -->
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <p class="form-message"></p>
-                                    </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="5" placeholder="Message"
+                                        required=""></textarea>
                                 </div>
+                                <button type="submit" class="btn btn-contact">Send Message</button>
                             </form>
                         </div>
                     </div>
@@ -116,7 +109,7 @@
     <script src="assets/js/gsap.effects.js"></script>
 
     <!-- for editing purpose -->
-    <script src="assets/js/common_js/send_email.js"></script>
+    <script src="assets/js/custom/editModeScript.js"></script>
     <script src="assets/js/common_js/html_image_editor.js"></script>
     <script src="assets/js/common_js/windows_postmessage.js"></script>
 
