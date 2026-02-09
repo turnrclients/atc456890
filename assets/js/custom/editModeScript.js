@@ -1264,28 +1264,6 @@ function initializeInputEditor(anchor) {
     }
 
     saveChanges.on('click', function () {
-<<<<<<< HEAD
-            $('.selectedPageName').remove();
-            $('[id="top-bar"]').not(':first').remove();
-            $('#page-header').removeClass('sticky-active');
-            $('#wrapper').removeClass('editableSection');
-        const scriptSrcsToDedup = [
-            'assets/js/middle-section.js',
-            '/assets/css/custom/editmode.js',
-            '/assets/ai_model_bridge.js',
-            '/assets/js/custom/main.js',
-            '/assets/js/custom/editModeScript.js'
-        ];
-
-        scriptSrcsToDedup.forEach(src => {
-            const $scripts = $(`script[src="${src}"]`);
-            $scripts.not(':first').remove();
-        });
-
-
-
-=======
->>>>>>> 6920a5e6005cd6b4ec55e9cdd6b28802708f7c3a
         isEditingContent = false;
         isEditingImages = false;
         toggleEditableClasses(false);
@@ -1341,15 +1319,6 @@ function initializeInputEditor(anchor) {
         }
         // Clone the HTML and clean up
         var editedHTML = $('html').clone();
-<<<<<<< HEAD
-        editedHTML.$('.editable, .editable-image').removeClass('editable editable-image');
-        editedHTML.find('a.edit-site').removeClass('edit-site');
-        editedHTML.find('#imgForm').remove();
-        editedHTML.find('.selectedPageName').remove();
-        editedHTML.find('#page-header').removeClass('sticky-active');
-        editedHTML.find('#wrapper').removeClass('editableSection');
-=======
->>>>>>> 6920a5e6005cd6b4ec55e9cdd6b28802708f7c3a
 
         // SCRIPTS WHICH HAVE BEEN ADDED FROM THE BACKEND HAS TO BE REMOVE BEFORE SAVE
         // editedHTML.find('script[src*="editmode"]').remove();
