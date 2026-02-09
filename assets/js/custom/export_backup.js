@@ -1,131 +1,3 @@
-// ==============Custom alert========================
-function injectCustomAlertCSS() {
-    if (document.getElementById('custom-alert-style')) return;
-
-    const style = document.createElement('style');
-    style.id = 'custom-alert-style';
-    style.innerHTML = `
-        .custom-alert-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 99997;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .custom-alert-backdrop.show {
-            opacity: 1;
-        }
-
-        .custom-alert-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -60%) scale(0.95);
-            opacity: 0;
-            z-index: 99998;
-            width: 100%;
-            max-width: 420px;
-            font-family: 'Quicksand', sans-serif;
-            transition: transform 0.35s ease, opacity 0.35s ease;
-            pointer-events: none;
-        }
-
-        .custom-alert-popup.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .custom-alert-content {
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-            text-align: center;
-            padding: 30px 26px;
-        }
-
-        .custom-alert-message {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 22px;
-        }
-
-        .custom-alert-popup.success .custom-alert-message {
-            color: #28a745;
-        }
-
-        .custom-alert-popup.error .custom-alert-message {
-            color: #dc3545;
-        }
-
-        .custom-alert-ok-btn {
-            background: linear-gradient(135deg, #e39a4e, #fb1b1b);
-            color: #fff;
-            border: none;
-            padding: 10px 36px;
-            border-radius: 230px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-        }
-
-        .custom-alert-ok-btn:hover {
-            opacity: 0.9;
-        }
-
-        body.custom-alert-open {
-            overflow: hidden;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-function showCustomAlertBox(type = 'error', message = 'Something went wrong', onOk) {
-
-    injectCustomAlertCSS();
-
-    // normalize type
-    type = (type === 'success') ? 'success' : 'error';
-
-    // fallback message safety
-    if (!message || message.trim() === '') {
-        message = 'Something went wrong';
-    }
-
-    const backdrop = document.createElement('div');
-    backdrop.className = 'custom-alert-backdrop show';
-
-    const popup = document.createElement('div');
-    popup.className = `custom-alert-popup ${type} show`;
-
-    popup.innerHTML = `
-        <div class="custom-alert-content">
-            <div class="custom-alert-message">${message}</div>
-            <button class="custom-alert-ok-btn">OK</button>
-        </div>
-    `;
-
-    document.body.appendChild(backdrop);
-    document.body.appendChild(popup);
-    document.body.classList.add('custom-alert-open');
-
-    function close() {
-        backdrop.remove();
-        popup.remove();
-        document.body.classList.remove('custom-alert-open');
-        if (typeof onOk === 'function') onOk();
-    }
-
-    popup.querySelector('.custom-alert-ok-btn').onclick = close;
-    backdrop.onclick = close;
-}
-
-// =========================================================
-
-
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -445,7 +317,7 @@ const SEOData = {
 
     const filteredFooterPages = FooterPages.filter(page => !headerPages.includes(page));
     if (globalHeader.indexOf("header")!=0 || globalFooter.indexOf("footer")!=0) {
-       alert('You forgot to add Header or Footer for your website so please add before proceeding further.');
+        alert('You forgot to add Header or Footer for your website so please add before proceeding further.');
         return;
     }
 
@@ -523,7 +395,7 @@ const SEOData = {
 
         section.find('img').each(function() {
             const oldSrc = $(this).attr("src");
-            if (oldSrc && (oldSrc.endsWith(".jpeg") || oldSrc.endsWith(".JPG") || oldSrc.endsWith(".jpg") || oldSrc.endsWith(".png") || oldSrc.endsWith(".svg"))) {
+            if (oldSrc && (oldSrc.endsWith(".jpg") || oldSrc.endsWith(".png") || oldSrc.endsWith(".svg"))) {
                 // Check if the src contains 'assets/images/' and replace it
                 if (oldSrc.includes("assets/images/")) {
                     //const newSrc = oldSrc.replace("assets/images/", `assets/clients/${clientName}/${clientProjectName}/images/`);
@@ -539,7 +411,7 @@ const SEOData = {
             if (backgroundImage && backgroundImage !== 'none') {
                 const imageUrl = backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
                 // Check if the background image URL contains 'assets/images/' and replace it
-                if (imageUrl && (imageUrl.endsWith(".jpeg") || imageUrl.endsWith(".JPG") || imageUrl.endsWith(".jpg") || imageUrl.endsWith(".png") || imageUrl.endsWith(".svg"))) {
+                if (imageUrl && (imageUrl.endsWith(".jpg") || imageUrl.endsWith(".png") || imageUrl.endsWith(".svg"))) {
                     if (imageUrl.includes("assets/images/")) {
                        // const newImageUrl = imageUrl.replace("assets/images/", `assets/clients/${clientName}/${clientProjectName}/images/`);
                         const newImageUrl = imageUrl.replace("assets/images/", `assets/images/`);
@@ -583,24 +455,17 @@ const SEOData = {
         // if (globalHeader) allSectionsOfPage.push(globalHeader);
 
         // Add mid sections in the page
-            let middleKey = null;
-            if (middleSections["header_" + pageName]) {
-                middleKey = "header_" + pageName;
+        if(middleSections[pageName] !== undefined) {
 
-            // Try pageName as fallback
-            } else if (middleSections[pageName]) {
-                middleKey = pageName;
-            }
-
-            if (middleKey && middleSections[middleKey].length > 0) {
-                const availableMiddleSectionsForPage = middleSections[middleKey];
-                availableMiddleSectionsForPage.forEach(sectionId => {
-                    allSectionsOfPage.push(sectionId);
+            const availableMiddleSectionsForPage = middleSections[pageName];
+            if (availableMiddleSectionsForPage) {
+                availableMiddleSectionsForPage.forEach(pageSectionName => {
+                        allSectionsOfPage.push(pageSectionName);
                 });
-            } else {
-                console.warn("No middle section found for", pageName, " → using default");
-                allSectionsOfPage.push("default-middle_section");
             }
+        } else {
+            allSectionsOfPage.push("default-middle_section");
+        }
 
         // Add footer section in the page
         // if (globalFooter) allSectionsOfPage.push(globalFooter);
@@ -620,16 +485,7 @@ const SEOData = {
         let pageContent = '';
         allSectionsOfPage.forEach(sectionId => {
 
-            const originalSection =
-            document.getElementById(sectionId) ||
-            document.querySelector(`[id^="${sectionId}"]`);
-
-            if (!originalSection) {
-                console.warn("Missing section in DOM:", sectionId);
-                return;  //  Prevents blank pages
-            }
-
-            const sectionClone = $(originalSection).clone();
+            const sectionClone = $(`#${sectionId}`).clone();
             sectionClone.find('.radio-holder').remove();
             // sectionClone.find('img').each(function() {
             //     const oldSrc = $(this).attr("src");
@@ -680,20 +536,17 @@ sectionClone.find('.company_name').contents().filter(function () {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="${seoInfo.description}">
             <meta name="keywords" content="${seoInfo.keywords}">
-            <base href='/'>
             <title>${fileName}</title>
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-            <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             <link rel="stylesheet" href="assets/css/style.css">
             <link rel="stylesheet" href="assets/css/middle_sections.css">
-            <link rel="stylesheet" href="assets/css/anim-effects.css">
             <link rel="stylesheet" href="assets/css/components/${globalHeader}.css">
             <link rel="stylesheet" href="assets/css/components/${globalFooter}.css">
             <link rel="stylesheet" href="assets/css/bootstrap.css">
             <link rel="stylesheet" href="assets/css/plugins.css">
 	        <link rel="stylesheet" href="assets/css/custom-Imports.css">
-            <link rel="stylesheet" href="assets/css/custom/editmode.css">
             <link rel="stylesheet" href="assets/css/resonsive.css">
             	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 	<link rel="stylesheet"
@@ -709,10 +562,9 @@ sectionClone.find('.company_name').contents().filter(function () {
         </head>
         <body class="${selectedThemeClass}">
             <div id="wrapper">
-            <div id="header" data-src="header.html"></div>
+            <div id="header"></div>
             <div id="mainPageContent">${pageContent}</div>
-            <div id="footer" data-src="footer.html"></div>
-
+            <div id="footer"></div>
             </div>
             <script src="assets/js/jquery.js"></script>
             <script src="assets/js/init.js"></script>
@@ -722,21 +574,15 @@ sectionClone.find('.company_name').contents().filter(function () {
             <script src="assets/js/ScrollTrigger.min.js"></script>
             <script src="assets/js/Observer.min.js"></script>
             <script src="assets/js/gsap.effects.js"></script>
-            <script src="assets/js/common_js/send_email.js"></script>
-
-            <script src="assets/js/common_js/html_image_editor.js"></script>
-            <script src="assets/js/common_js/windows_postmessage.js"></script>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
             <script>
                 var fileName = document.title || "index";
 
                 $(document).ready(function () {
                 /* Start code to load js and css files properly on local server or production server: NOte: this is the workwround, need to fix this */
-                loadHeaderFooter("header", "client-assets/${clientName}/${clientProjectName}/header.html");
-                loadHeaderFooter("footer", "client-assets/${clientName}/${clientProjectName}/footer.html");
+                loadHeaderFooter("header", "assets/${clientName}/${clientProjectName}/header.html");
+                loadHeaderFooter("footer", "assets/${clientName}/${clientProjectName}/footer.html");
                 /*  End code */
 
                 /*  Start code to load js and css files properly on Githubpages  */
@@ -769,7 +615,6 @@ sectionClone.find('.company_name').contents().filter(function () {
                 }
             </script>
                         <script src="assets/js/middle-section.js"></script>
-                        <script src="assets/js/common_js/image_uploader.js"></script>
 
         </body>
         </html>
@@ -784,44 +629,22 @@ sectionClone.find('.company_name').contents().filter(function () {
     // filteredFooterPages.push("default-middle_section");  // Add DUmmy entry to add default middle section
 
     filteredFooterPages.forEach(pageName => {
-    if (headerPages.includes(pageName)) {
-        console.log("Skipping duplicate footer page:", pageName);
-        return;
-    }
         const allSectionsOfPage = [];
         // Add header section in the page
         // if (globalHeader) allSectionsOfPage.push(globalHeader);
 
         // Add mid sections in the page
-       let middleKey = null;
-    // Try footer_<pageName>
-    if (middleSections["footer_" + pageName]) {
-        middleKey = "footer_" + pageName;
+        if(middleSections[pageName] !== undefined) {
 
-    // Try header_<pageName> (fallback)
-    } else if (middleSections["header_" + pageName]) {
-        middleKey = "header_" + pageName;
-
-    // Try plain pageName
-    } else if (middleSections[pageName]) {
-        middleKey = pageName;
-    }
-
-
- if (middleKey && middleSections[middleKey].length > 0) {
-        middleSections[middleKey].forEach(sectionId => {
-            allSectionsOfPage.push(sectionId);
-        });
-    } else {
-        console.warn("No middle section for FOOTER page:", pageName);
-        allSectionsOfPage.push("default-middle_section");
-    }
-
-    if (allSectionsOfPage.length === 0) {
-        alert(`No sections selected for export for ${pageName}`);
-        return;
-    }
-
+            const availableMiddleSectionsForPage = middleSections[pageName];
+            if (availableMiddleSectionsForPage) {
+                availableMiddleSectionsForPage.forEach(pageSectionName => {
+                        allSectionsOfPage.push(pageSectionName);
+                });
+            }
+        } else {
+            allSectionsOfPage.push("default-middle_section");
+        }
 
         // Add footer section in the page
         // if (globalFooter) allSectionsOfPage.push(globalFooter);
@@ -831,45 +654,32 @@ sectionClone.find('.company_name').contents().filter(function () {
             return;
         }
 
-      let fileName = pageName.replace(/^footer_/, "");
+        let fileName = pageName;
+        fileName = fileName.replace(/^(header_)/, ''); // Clean up prefix
 
-    if (fileName.includes("_sub_")) {
-        fileName = fileName.split("_sub_")[1];
-    }
-
+        if (fileName.includes('_sub_')) {
+            fileName = fileName.split('_sub_')[1];
+        }
 
         let pageContent = '';
         var clientName = getCookie("clientName");
         var clientProjectName =  getCookie("projectName");
 
 
-allSectionsOfPage.forEach(sectionId => {
+        allSectionsOfPage.forEach(sectionId => {
 
-        // Try exact ID or prefix match
-        let originalSection =
-            document.getElementById(sectionId) ||
-            document.querySelector(`[id^="${sectionId}"]`);
+            const sectionClone = $(`#${sectionId}`).clone();
+            sectionClone.find('.radio-holder').remove();
+            processImagesAndRemoveThemeClasses(sectionClone);
 
-        if (!originalSection) {
-            console.warn("Missing section in DOM:", sectionId);
-            return;
-        }
+            sectionClone.find('.company_name').contents().filter(function () {
+                return this.nodeType === 3 && this.nodeValue.includes("Company Name");
+            }).each(function () {
+                this.nodeValue = this.nodeValue.replace(/Company Name/g, clientProjectName);
+            });
 
-        const sectionClone = $(originalSection).clone();
-
-        sectionClone.find(".radio-holder").remove();
-
-        processImagesAndRemoveThemeClasses(sectionClone, clientName, clientProjectName);
-
-        sectionClone.find(".company_name").contents().filter(function () {
-            return this.nodeType === 3 &&
-                   this.nodeValue.includes("Company Name");
-        }).each(function () {
-            this.nodeValue = this.nodeValue.replace(/Company Name/g, clientProjectName);
+            pageContent += `${sectionClone.html()}\n`;
         });
-
-        pageContent += `${sectionClone.html()}\n`;
-    });
     let headerFont = $("." + globalHeader).css("font-family") || "'Roboto', sans-serif";
     const seoInfo = SEOData[headerCategory] || {keywords: "", description: ""};
 
@@ -881,21 +691,17 @@ allSectionsOfPage.forEach(sectionId => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="${seoInfo.description}">
             <meta name="keywords" content="${seoInfo.keywords}">
-            <base href='/'>
-
             <title>${fileName}</title>
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-              <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             <link rel="stylesheet" href="assets/css/style.css">
             <link rel="stylesheet" href="assets/css/middle_sections.css">
-            <link rel="stylesheet" href="assets/css/anim-effects.css">
             <link rel="stylesheet" href="assets/css/components/${globalHeader}.css">
             <link rel="stylesheet" href="assets/css/components/${globalFooter}.css">
             <link rel="stylesheet" href="assets/css/bootstrap.css">
             <link rel="stylesheet" href="assets/css/plugins.css">
             <link rel="stylesheet" href="assets/css/custom-Imports.css">
-            <link rel="stylesheet" href="assets/css/custom/editmode.css">
             <link rel="stylesheet" href="assets/css/resonsive.css">
 
 
@@ -911,12 +717,11 @@ allSectionsOfPage.forEach(sectionId => {
             }
         </style>
         </head>
-       <body class="${selectedThemeClass}">
+        <body class="${selectedThemeClass}">
             <div id="wrapper">
-            <div id="header" data-src="header.html"></div>
+            <div id="header"></div>
             <div id="mainPageContent">${pageContent}</div>
-            <div id="footer" data-src="footer.html"></div>
-
+            <div id="footer"></div>
             </div>
             <script src="assets/js/jquery.js"></script>
             <script src="assets/js/init.js"></script>
@@ -926,30 +731,20 @@ allSectionsOfPage.forEach(sectionId => {
             <script src="assets/js/ScrollTrigger.min.js"></script>
             <script src="assets/js/Observer.min.js"></script>
             <script src="assets/js/gsap.effects.js"></script>
-
-
-            <script src="assets/js/common_js/send_email.js"></script>
-
-            <script src="assets/js/common_js/html_image_editor.js"></script>
-            <script src="assets/js/common_js/windows_postmessage.js"></script>
-
             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
             <script>
                 var fileName = document.title || "index";
 
                 $(document).ready(function () {
                 /* Start code to load js and css files properly on local server or production server: NOte: this is the workwround, need to fix this */
-                loadHeaderFooter("header", "client-assets/${clientName}/${clientProjectName}/header.html");
-                loadHeaderFooter("footer", "client-assets/${clientName}/${clientProjectName}/footer.html");
+                loadHeaderFooter("header", "assets/${clientName}/${clientProjectName}/header.html");
+                loadHeaderFooter("footer", "assets/${clientName}/${clientProjectName}/footer.html");
                 /*  End code */
 
                 /*  Start code to load js and css files properly on Githubpages  */
                 loadHeaderFooter("header", "header.html");
                 loadHeaderFooter("footer", "footer.html");
                 /* End code */
-
                 });
 
                 function loadHeaderFooter(id, file) {
@@ -974,13 +769,12 @@ allSectionsOfPage.forEach(sectionId => {
                     });
                 }
             </script>
-                        <script src="assets/js/middle-section.js"></script>
-                        <script src="assets/js/common_js/image_uploader.js"></script>
+            <script src="assets/js/middle-section.js"></script>
 
         </body>
         </html>
     `;
-    filesDetailsMap[`${fileName}.html`] = newPageContent;
+     filesDetailsMap[`${fileName}.html`] = newPageContent;
 
     });
     filesDetailsMap["imagesNameList"] = imagesNameList;
@@ -988,12 +782,11 @@ allSectionsOfPage.forEach(sectionId => {
 }
 function uploadFilesData(filesDetailsMap) {
     displayLoadingMessage();
- $("#uploadBtn").show();
+
     filesDetailsMap["clientName"] =  getCookie("clientName");
     filesDetailsMap["clientProjectName"] =  getCookie("projectName");
     // filesDetailsMap["reqFor"] =  "preview";
-console.log("clientName:", getCookie("clientName"));
-console.log("projectName:", getCookie("projectName"));
+
     $.ajax({
         type: 'POST',
         url: "indexOld/",
@@ -1005,14 +798,14 @@ console.log("projectName:", getCookie("projectName"));
             "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
         },
         success: function (data) {
-           showCustomAlertBox('success', 'Uploaded the data');
-        //   alert("Uploaded the data");
+          alert("Uploaded the data");
           $('#loading-message').remove();
             // Clear all cookies
             // clearAllCookies();
             // location.reload();
         // $('#openIndex').trigger('click', [getCookie("clientName"), getCookie("projectName"),true]);
-        openPreview();
+        openPreview()
+
         },
         error: function (xhr, errmsg, err) {
             console.log("Error----"+ xhr.responseText);
@@ -1021,188 +814,70 @@ console.log("projectName:", getCookie("projectName"));
       });
 }
 
-function openPreview() {
 
-    var filename = "index.html";
-    var clientName = getCookie('clientName');
-    var clientProjectName = getCookie('projectName');
-    var previewMode = getCookie('previewMode') || 'desktop';
+function openPreview(){
+    //alert('hello...........')
+      var filename = "index.html";
+        var clientName = getCookie('clientName');
+        var clientProjectName = getCookie('projectName');
 
-    setCookie('preview', 'true', 7);
+        $.ajax({
+            type: 'POST',
+            url: "es/",
+            data: {
+            'clientName': clientName,
+            'clientProjectName': clientProjectName,
+            'srcReq': filename
+            },
+            headers: {
+                 "X-Requested-With": "XMLHttpRequest",
+            },
+            success: function (data) {
+                console.log('data: ', data)
 
-    $.ajax({
-        type: 'POST',
-        url: "es/",
-        data: {
-            clientName: clientName,
-            clientProjectName: clientProjectName,
-            srcReq: filename
-        },
-        headers: {
-            "X-Requested-With": "XMLHttpRequest"
-        },
-        success: function (data) {
+              var newTab = window.open("", "_blank");
+              newTab.document.write(data);
 
-            var newTab = window.open(`/es/?srcReq=${filename}`, "_blank");
-
-            var tabInterval = setInterval(function () {
-                if (newTab.document && newTab.document.readyState === 'complete') {
-                    clearInterval(tabInterval);
-                    injectPreview(newTab, data);
+              newTab.document.close();
+                   newTab.onload = function () {
+             function appendElement(tag, attributes, toBody) {
+                        var element;
+                     if (tag === 'script') {
+                    element = newTab.document.querySelector('script[src="' + attributes.src + '"]');
+                    if (!element) {
+                        element = newTab.document.createElement(tag);
+                        for (var attr in attributes) {
+                            element[attr] = attributes[attr];
+                        }
+                        if (toBody) {
+                            newTab.document.body.appendChild(element);
+                        } else {
+                            newTab.document.head.appendChild(element);
+                        }
+                    }
                 }
-            }, 50);
-        },
-        error: function (data) {
-            alert(data.responseJSON?.errorMessage || 'Something went wrong');
-        }
-    });
-
-    return false;
-
-    /* ---------------- helper ---------------- */
-
-    function hideTopBar(doc) {
-        var attempts = 0;
-
-        var interval = setInterval(function () {
-            var topBar = doc.getElementById('top-bar');
-            if (topBar) {
-                topBar.style.display = 'none';
-                clearInterval(interval);
             }
-            if (++attempts > 50) {
-                clearInterval(interval);
-            }
-        }, 100);
-    }
 
-    function injectPreview(newTab, data) {
+              appendElement('script', { src: 'assets/js/custom/editmode.js', type: 'text/javascript' }, true);
 
-        /* ================= MOBILE PREVIEW ================= */
-        if (previewMode === 'mobile') {
+              $('<input>', {type: 'hidden',class: 'hidden selectedPageName',name: 'selectedPageName',value: filename}).appendTo(newTab.document.body);
 
-            newTab.document.open();
-            newTab.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Mobile Preview</title>
-                    <style>
-                        body {
-                            margin: 0;
-                            background: #0f0f0f;
-                            display: flex;
-                            justify-content: center;
-                            padding: 24px 0;
-                            height: 100vh;
-                        }
-                        .mobile-frame {
-                            width: 375px;
-                            height: 600px;
-                            background: #fff;
-                            border-radius: 28px;
-                            box-shadow: 0 20px 45px rgba(0,0,0,.6);
-                            overflow: hidden;
-                        }
-                        iframe {
-                            width: 100%;
-                            height: 100%;
-                            border: none;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="mobile-frame">
-                        <iframe id="mobileIframe"></iframe>
-                    </div>
-                </body>
-                </html>
-            `);
-            newTab.document.close();
 
-            var iframe = newTab.document.getElementById('mobileIframe');
+                var anchorTags = newTab.document.querySelectorAll('a');
+                  anchorTags.forEach(function(anchor) {
+                  anchor.classList.add('edit-site');
+              });
 
-            iframe.onload = function () {
-                hideTopBar(iframe.contentDocument);
+
             };
-
-            iframe.contentDocument.open();
-            iframe.contentDocument.write(data);
-            iframe.contentDocument.close();
-
-            return;
-        }
-
-        /* ================= DESKTOP PREVIEW ================= */
-
-        newTab.document.open();
-        newTab.document.write(data);
-        newTab.document.close();
-
-        // 🔥 hide top-bar even if injected later
-        hideTopBar(newTab.document);
-
-        // inject edit mode script once
-        if (!newTab.document.querySelector('script[src="assets/js/custom/editmode.js"]')) {
-            var script = newTab.document.createElement('script');
-            script.src = 'assets/js/custom/editmode.js';
-            script.type = 'text/javascript';
-            newTab.document.body.appendChild(script);
-        }
-
-        $('<input>', {
-            type: 'hidden',
-            class: 'hidden selectedPageName',
-            name: 'selectedPageName',
-            value: filename
-        }).appendTo(newTab.document.body);
-
-        newTab.document.querySelectorAll('a').forEach(function (a) {
-            a.classList.add('edit-site');
-        });
-    }
-}
-
-
-
-// function openPreview(){
-//     //alert('hello...........')
-//       var filename = "index.html";
-//         var clientName = getCookie('clientName');
-//         var clientProjectName = getCookie('projectName');
-//         setCookie('preview','true',7)
-
-//         $.ajax({
-//             type: 'POST',
-//             url: "es/",
-//             data: {
-//             'clientName': clientName,
-//             'clientProjectName': clientProjectName,
-//             'srcReq': filename,
-//             },
-//             headers: {
-//                  "X-Requested-With": "XMLHttpRequest",
-//             },
-//             success: function (data) {
-//                 console.log('data: ', data)
-//                 window.open(`/es/?srcReq=${filename}`, "_blank");
-
-
-//             },
-//             error: function (data, errmsg, err) {
-//                 alert(data.responseJSON.errorMessage);
-//             }
-//           });
-//           return false;
-//  }
-
-
-
-
-
-
-
-
+          
+            },
+            error: function (data, errmsg, err) {
+                alert(data.responseJSON.errorMessage);
+            }
+          });
+          return false;
+ }
 
 
 function cleanPageName(pageName) {
@@ -1274,70 +949,88 @@ function generateFooterLinks() {
     return footerContent;
 }
 
+let selectedThemeClass = '';
 
-// Theme Selector code
-            let selectedThemeClass = '';
+const themes = {
+  'theme-1': { primary: '#0f6979', secondary: '#ffc000', tertiary: '#ffffff' },
+  'theme-2': { primary: '#283259', secondary: '#1da6a6', tertiary: '#ffffff' },
+  'theme-3': { primary: '#1d4d13', secondary: '#f4a300', tertiary: '#ffffff' },
+  'theme-4': { primary: '#ffc000', secondary: '#ffffff', tertiary: '#000000' },
+  'theme-5': { primary: '#f0f8ff', secondary: '#59bb2c', tertiary: '#000000' },
+  'theme-6': { primary: '#0caa85', secondary: '#f4a300', tertiary: '#ffffff' },
+};
 
-            const themes = {
-            'theme-1': { primary: '#0f6979', secondary: '#ffc000', tertiary: '#ffffff' },
-            'theme-2': { primary: '#283259', secondary: '#1da6a6', tertiary: '#ffffff' },
-            'theme-3': { primary: '#1d4d13', secondary: '#f4a300', tertiary: '#ffffff' },
-            'theme-4': { primary: '#ffc000', secondary: '#ffffff', tertiary: '#000000' },
-            'theme-5': { primary: '#f0f8ff', secondary: '#59bb2c', tertiary: '#000000' },
-            'theme-6': { primary: '#0caa85', secondary: '#f4a300', tertiary: '#ffffff' },
-            };
+// Hide the preview initially when the modal is shown
+$('#theme-modal').on('show', function() {
+  $('#theme-dropdown').val('');
+  $('#theme-preview').hide(); // Hide the preview initially
+});
 
-            // Function to update the theme color preview
-            function updateThemePreview(theme) {
-            const colors = themes[theme] || { primary: '#ffffff', secondary: '#000000', tertiary: '#ffffff' };
-            $('#theme-preview .primary').css('background-color', colors.primary);
-            $('#theme-preview .secondary').css('background-color', colors.secondary);
-            $('#theme-preview .tertiary').css('background-color', colors.tertiary);
-            }
+// Function to update theme preview colors
+function updateThemePreview(theme) {
+  let colors;
 
-            // When dropdown value changes
-            $('#theme-dropdown').on('change', function () {
-            selectedThemeClass = $(this).val();
-            if (selectedThemeClass) {
-                updateThemePreview(selectedThemeClass);
-                $('#theme-preview').show();
-            } else {
-                $('#theme-preview').hide();
-            }
-            });
+  if (themes[theme]) {
+    colors = themes[theme];
+  } else {
+    colors = { primary: '#ffffff', secondary: '#000000', tertiary: '#ffffff' };
+  }
 
-            // When switching to the Theme tab
-            $('a[href="#tab-theme"]').on('shown.bs.tab', function () {
-            // Set default theme if none selected
-            if (!selectedThemeClass) {
-                selectedThemeClass = 'theme-1';
-                $('#theme-dropdown').val('theme-1');
-            }
-            updateThemePreview(selectedThemeClass);
-            $('#theme-preview').show();
-            });
+  // Update the color of each circle in the preview
+  $('#theme-preview .primary').css('background-color', colors.primary);
+  $('#theme-preview .secondary').css('background-color', colors.secondary);
+  $('#theme-preview .tertiary').css('background-color', colors.tertiary);
+}
 
-            // On export button click
-                $('#export-btn').off('click').on('click', function () {
+// When a theme is selected from the dropdown
+$('#theme-dropdown').change(function() {
+  selectedThemeClass = $(this).val();
 
-                    const clientName = getCookie("clientName");
-                    const projectName = getCookie("projectName");
-                    let theme = selectedThemeClass || 'theme-1';
+  if (selectedThemeClass) {
+    updateThemePreview(selectedThemeClass);
+    $('#theme-preview').show(); // Show the preview once a theme is selected
+  } else {
+    $('#theme-preview').hide(); // Hide the preview if no theme is selected
+  }
+});
 
-                    if (!clientName || !projectName) {
-                        alert("Client and Project details missing. Please fill them first.");
-                        return;
-                    }
+// Submit button click handler
+$('.submit-btn').on('click', function() {
+  if (selectedThemeClass === '') {
+    alert("Please select a theme.");
+    return;
+  }
 
-                    if (!theme) {
-                        theme = 'theme-1';
-                        setCookie('selectedTheme', theme, 7);
-                        console.log('No theme selected. Defaulting to theme-1.');
-                    }
+  $('#theme-modal').modal('hide');
+  alert("Selected Theme: " + selectedThemeClass);
 
-                    setCookie('previewMode', 'desktop', 1);
-                    createHTMLFilesDataForWebsiteLinks(theme);
-                });
+  const clientName = getCookie("clientName");
+  const projectName = getCookie("projectName");
+
+  if (clientName && projectName) {
+    createHTMLFilesDataForWebsiteLinks(selectedThemeClass);
+  } else {
+    alert('Please enter both client and project names.');
+  }
+});
+
+// Cancel button click handler
+$('.cancel-btn').on('click', function() {
+  $('#theme-modal').modal('hide');
+});
+
+// Export button click handler to show the theme modal
+$('#export-btn').on('click', function() {
+  $('#theme-modal').modal('show');
+});
+
+
+
+// $('#export-btn').on('click', function() {
+//     $('#theme-modal').modal('show');
+//     });
+
+
 
 // $('#export-btn').on('click', function () {
 
