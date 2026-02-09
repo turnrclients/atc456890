@@ -90,22 +90,22 @@
 }
 </style></head>
 <body class="theme-1" style="">
-<div class="editableSection" id="wrapper" style="pointer-events: auto;">
+<div class="top-bar" id="top-bar"><button id="enable-editmode">Enable Edit Mode</button><button onclick="uploadeditedproject()">upload changes</button><button class="hidden" disabled="" id="save-changes">Save</button></div><div class="" id="wrapper" style="pointer-events: auto;">
 <div class="" data-src="header.html" id="header"></div>
 <div class="" id="mainPageContent">
 <section class="section-wrapper about-55 about-55-section" id="section-fook9740sf">
 <div class="container about-55-container">
 <div class="row about-55-row">
 <!-- IMAGE BLOCK -->
-<div class="col-sm-6 about-55-image-wrap anim-slide-up" style="opacity: 1 !important;">
-<div class="about-55-border-box anim-cube-rotate" style="opacity: 1 !important;"></div>
+<div class="col-sm-6 about-55-image-wrap anim-slide-up in-view" style="opacity: 1 !important;">
+<div class="about-55-border-box anim-cube-rotate in-view" style="opacity: 1 !important;"></div>
 <img alt="Architecture Image" class="img-responsive about-55-img updateImg" data-original-src="assets/images/about-55.jpg" src="assets/images/about-55.jpg"/>
 </div>
 <!-- CONTENT BLOCK -->
-<div class="col-sm-6 about-55-content anim-slide-up" style="opacity: 1 !important;">
+<div class="col-sm-6 about-55-content anim-slide-up in-view" style="opacity: 1 !important;">
 <h5 class="about-55-subtitle">ABOUT US</h5>
 <h2 class="about-55-title">OUR MISSION IS THE BEST<br class=""/> ARCHITECT &amp; INTERIOR<br class=""/> DESIGN
-                                DEVELOPMENT.</h2>
+                                DEVELOPMENT.2</h2>
 <p class="about-55-boldtext">
                                 WE CREATE UNIQUE SPACES THAT REFLECT MODERN DESIGN PRINCIPLES.
                             </p>
@@ -241,20 +241,20 @@
 </div>
 </div>
 </div>
-</section><section class="welcome-section section-wrapper home-1 effect fade-in animate" data-aos="fade-up" data-aos-anchor-placement="top-bottom" id="section-bhlvc8bd36r">
+</section><section class="welcome-section section-wrapper home-1 effect fade-in" data-aos="fade-up" data-aos-anchor-placement="top-bottom" id="section-bhlvc8bd36r">
 <div class="container">
 <div class="row clearfix">
 <!--Content Column-->
 <div class="content-column col-lg-7 col-md-12 col-sm-12">
 <div class="inner-column">
-<h2>Welcome to <span class="company_name">Auto Repair Shops</span></h2>
+<h2 class="">Welcome to <span class="company_name">Auto Repair Shops</span></h2>
 <div class="text">
-<p>At <strong>Auto Repair Shops</strong>, we provide trusted and reliable car care services.
+<p class="">At <strong class="">Auto Repair Shops</strong>, we provide trusted and reliable car care services.
                             From routine maintenance to complete diagnostics and repair, our skilled technicians
                             ensure your vehicle stays safe, efficient, and road-ready. We combine modern technology
                             with years of expertise to deliver service you can count on.</p>
-<h3>Our Journey at <span class="company_name">Auto Repair Shops</span></h3>
-<p>With a history of serving thousands of satisfied customers, we’ve built a reputation for
+<h3 class="">Our Journey at <span class="company_name">Auto Repair Shops</span></h3>
+<p class="">With a history of serving thousands of satisfied customers, we’ve built a reputation for
                             excellence in quality and customer care. From engine work to body repair, we aim to make
                             every drive worry-free.</p>
 </div>
@@ -264,7 +264,7 @@
 <!--image Column-->
 <div class="image-column col-lg-5 col-md-12 col-sm-12">
 <div class="image">
-<img alt="" src="assets/images/home-1.jpg"/>
+<img alt="" class="updateImg" data-original-src="assets/images/home-1.jpg" src="assets/images/home-1.jpg"/>
 </div>
 </div>
 </div>
@@ -324,25 +324,9 @@
 <script src="/assets/ai_model_bridge.js" type="module"></script>
 <script src="/assets/js/custom/main.js"></script>
 <script src="/assets/js/custom/editModeScript.js"></script>
-<form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/></form>
-<script src="/assets/css/custom/editmode.js"></script>
-<script src="/assets/ai_model_bridge.js" type="module"></script>
-<script src="/assets/js/custom/main.js"></script>
-<script src="/assets/js/custom/editModeScript.js"></script>
+<form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/><input accept="image/*" class="hidden" id="image-upload" name="imgFile" type="file"/><input class="hidden formFieldFileName" name="imgFileName" type="text" value=""/></form>
 <form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form>
-<script src="/assets/css/custom/editmode.js"></script>
-<script src="/assets/ai_model_bridge.js" type="module"></script>
-<script src="/assets/js/custom/main.js"></script>
-<script src="/assets/js/custom/editModeScript.js"></script>
 <form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form>
-<script src="/assets/css/custom/editmode.js"></script>
-<script src="/assets/ai_model_bridge.js" type="module"></script>
-<script src="/assets/js/custom/main.js"></script>
-<script src="/assets/js/custom/editModeScript.js"></script>
 <form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form>
-<script src="/assets/css/custom/editmode.js"></script>
-<script src="/assets/ai_model_bridge.js" type="module"></script>
-<script src="/assets/js/custom/main.js"></script>
-<script src="/assets/js/custom/editModeScript.js"></script>
 <form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form>
-</body>
+<form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form><form class="hidden" enctype="multipart/form-data" id="imgForm" method="post"></form></body>
