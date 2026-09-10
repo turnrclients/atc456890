@@ -10,7 +10,7 @@
     <title>Contact</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/middle_sections.css">
@@ -21,19 +21,18 @@
     <link rel="stylesheet" href="assets/css/custom-Imports.css">
     <link rel="stylesheet" href="assets/css/resonsive.css">
 
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <style>
         :root {
-            --site-font: "Montserrat", sans-serif;
+            --site-font: 'Montserrat', sans-serif;
         }
 
         body,
         #wrapper,
-        #wrapper * {
-            font-family: var(--site-font) !important;
+        #wrapper *:not(i):not([class^="ri-"]):not([class*=" ri-"]) {
+            font-family: var(--site-font);
         }
     </style>
 </head>
@@ -54,10 +53,13 @@
                                 expert solutions.</p>
 
                             <div class="contact-info">
-                                <p><i class="bi bi-geo-alt"></i> Archnest Pvt. Ltd., 9th Floor, DV Towers, Pune, India
+                                <p><i class="bi bi-geo-alt"></i> <span class="client_address">Archnest Pvt. Ltd., 9th
+                                        Floor, DV Towers, Pune, India</span>
                                 </p>
-                                <p><i class="bi bi-telephone"></i> (+91) 98765 43210</p>
-                                <p><i class="bi bi-envelope"></i> hello@archnest.com</p>
+                                <p><i class="bi bi-telephone"></i> <span class="client_mobile">(+91) 98765 43210</span>
+                                </p>
+                                <p><i class="bi bi-envelope"></i> <span class="client_email">hello@archnest.com</span>
+                                </p>
                                 <p><i class="bi bi-clock"></i> Mon - Fri: 09:00 AM – 06:00 PM</p>
                             </div>
 
@@ -90,7 +92,6 @@
                                 <button type="submit" class="btn btn-contact" onclick="sendEmailDataToGitHub()">Send
                                     Message</button>
 
-
                                 <!-- Form Message -->
                                 <div class="col-12">
                                     <div class="form-group">
@@ -122,37 +123,46 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script>
-        var fileName = document.title || "index";
-
-        $(document).ready(function () {
-            loadHeaderFooter("header", "client-assets/atc456890/atc456890/header.html");
-            loadHeaderFooter("footer", "client-assets/atc456890/atc456890/footer.html");
-
+        $(function () {
+            /* Start code to load js and css files properly on local server or production server: NOte: this is the workwround, need to fix this */
+            loadHeaderFooter("header", "/media/projects/atc456890/atc456890/header.html");
+            loadHeaderFooter("footer", "/media/projects/atc456890/atc456890/footer.html");
+            /*  End code */
+            /*  Start code to load js and css files properly on Githubpages  */
             loadHeaderFooter("header", "header.html");
             loadHeaderFooter("footer", "footer.html");
+            /* End code */
+            function getCurrentFile() {
+                let file = new URLSearchParams(location.search).get("srcReq") ||
+                    location.pathname.split("/").pop() ||
+                    "index.html";
+                if (!file.includes(".")) file += ".html";
+                return file.toLowerCase();
+            }
+
+            function loadHeaderFooter(id, file) {
+                $("#" + id).load(file, function (_, status) {
+                    if (status === "error") return;
+                    const targetid = $("#" + id);
+                    targetid.find("a").addClass("edit-site");
+                    if (id !== "header") return;
+                    let current = getCurrentFile();
+                    // Show / hide sections
+                    targetid.find(".main-header-section").toggle(current === "index.html");
+                    targetid.find(".header-breadcrumb-section").toggle(current !== "index.html");
+                    // Match page name
+                    let name = "";
+                    targetid.find(".main-navigation a").each(function () {
+                        let href = ($(this).attr("href") || "").split("/").pop().toLowerCase();
+                        if (href === current) name = $(this).text().trim();
+                    });
+                    // Apply name (fallback safe)
+                    targetid.find(".Page_name").text(
+                        name || current.replace(".html", "").replace(/_/g, " ")
+                    );
+                });
+            }
         });
-
-        function loadHeaderFooter(id, file) {
-            $("#" + id).load(file, function (response, status, xhr) {
-                if (status === "error") {
-                    console.error("Error loading " + file + ":", xhr.status, xhr.statusText);
-                    return;
-                }
-
-                $("#" + id).find("a").addClass("edit-site");
-
-                if (id === "header") {
-                    if (fileName.toLowerCase() === "index" || fileName.toLowerCase() === "home") {
-                        $("#" + id).find(".main-header-section").css("display", "inline-block");
-                    } else {
-                        $("#" + id).find(".main-header-section").css("display", "none");
-                        $("#" + id).find(".header-breadcrumb-section").css("display", "inline-block");
-                        $("#" + id).find(".header-breadcrumb-section .Page_name")
-                            .text(fileName.charAt(0).toUpperCase() + fileName.slice(1));
-                    }
-                }
-            });
-        }
     </script>
     <script src="assets/js/middle-section.js"></script>
 
